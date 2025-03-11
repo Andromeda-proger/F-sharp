@@ -12,23 +12,19 @@ let rec readDigit () =
 
 let c = readDigit()
 
-let rec Search n m =
-    if (n / 10) < 1 then 
-        if (n % 10) = c then m
-        else 0
-    else Search (n / 10) m
+let rec Search (n: float) (m: float)=
+    let n = abs n 
+    if (n / 10.) < 1. then 
+        if int(n % 10.) = c then m
+        else 0.
+    else Search (n / 10.) m
 
 let rec inputList () =
     printf "> "
-    let number = Console.ReadLine()
-    if number = "q" then []
+    let el = Console.ReadLine()
+    if el = "q" then []
     else 
-        match Int32.TryParse(number) with
-        | true, number->
-             number :: inputList()
-        | _ ->
-            printfn "Некорректный ввод. Пожалуйста, введите целое число!"
-            inputList()
+        el :: inputList()
 
 let Rand n =
     let rnd = Random()
@@ -38,17 +34,20 @@ let Rand n =
             let number = rnd.Next(1, 1000) // Генерация случайного числа от 1 до 1000
             generate (i - 1) (number :: acc)
     generate n []
+    
+let rec check (x: string) =
+    match Double.TryParse(x) with
+    | true, i -> Search i i 
+    | _ -> 0.
 
-[<EntryPoint>]
-let main _ =
-    printfn "Выберите способ заполнения списка (1 - рандом, 2 - ввод с клавиатуры)"
-    let s = Console.ReadLine()
-    let Num = 
+let Numm s:string list = 
         if s = "1" then 
             printfn "Введите количество элементов списка для заполнения рандомными значениями"
             let n = Console.ReadLine()
             match Int32.TryParse(n) with
-            | true, n when n > 0 -> Rand n
+            | true, n when n > 0 ->
+                let lst = Rand n
+                List.map string lst
             | _ -> 
                 printfn "Некорректный ввод!"
                 []
@@ -58,9 +57,16 @@ let main _ =
         else 
             printfn "Неверное действие"
             []
+
+[<EntryPoint>]
+let main _ =
+    printfn "Выберите способ заполнения списка (1 - рандом, 2 - ввод с клавиатуры)"
+    let s = Console.ReadLine()
+    
+    let Num = Numm s
     
     printfn "Ваш список: %A" Num
     
-    let summ = List.fold (fun acc x -> acc + (Search x x)) 0 Num
+    let summ = List.fold (fun (acc:float) x -> acc + (check x)) 0. Num
     printfn "Сумма элементов в списке, начинающихся на %i, равна: %A" c summ
     0
