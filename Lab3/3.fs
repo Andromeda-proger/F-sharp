@@ -10,17 +10,17 @@ let filename pos =
     if not (Seq.isEmpty pos) then
         Seq.map Path.GetFileName pos
     else
-        printfn "Файлы не найдены"
+        printfn "Р¤Р°Р№Р»С‹ РЅРµ РЅР°Р№РґРµРЅС‹"
         exit 1
 
 let rec Dirsearch() =
-    printfn "Введите название каталога, в котором будем искать файлы:"
+    printfn "Р’РІРµРґРёС‚Рµ РЅР°Р·РІР°РЅРёРµ РєР°С‚Р°Р»РѕРіР°, РІ РєРѕС‚РѕСЂРѕРј Р±СѓРґРµРј РёСЃРєР°С‚СЊ С„Р°Р№Р»С‹:"
     let dirname = Console.ReadLine()
     
     if Directory.Exists(dirname) then
         Directory.EnumerateFiles(dirname, "*.*", SearchOption.AllDirectories)
     else
-        printfn "Такой каталог не существует."
+        printfn "РўР°РєРѕР№ РєР°С‚Р°Р»РѕРі РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚."
         exit 1
 
 [<EntryPoint>]
@@ -30,14 +30,14 @@ let main _ =
     
     let fileNames = filename files
     
-    printfn "Введите символ, на который начинается имя файла:"
+    printfn "Р’РІРµРґРёС‚Рµ СЃРёРјРІРѕР», РЅР° РєРѕС‚РѕСЂС‹Р№ РЅР°С‡РёРЅР°РµС‚СЃСЏ РёРјСЏ С„Р°Р№Р»Р°:"
     let s = Console.ReadLine()
     
     let res = simbsearch s fileNames
     
     if not (Seq.isEmpty res) then
-        printfn "Найденные файлы:"
+        printfn "РќР°Р№РґРµРЅРЅС‹Рµ С„Р°Р№Р»С‹:"
         Seq.iter (printfn "%s") res
     else
-        printfn "Файлы, начинающиеся на '%s', не найдены." s
+        printfn "Р¤Р°Р№Р»С‹, РЅР°С‡РёРЅР°СЋС‰РёРµСЃСЏ РЅР° '%s', РЅРµ РЅР°Р№РґРµРЅС‹." s
     0
