@@ -74,6 +74,7 @@ let main _ =
 
     let binTree = createTree()
 
+    printfn "Ваше дерево"
     printTree2 binTree "" true
 
     printfn "Введите элемент для поиска:"
