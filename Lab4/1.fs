@@ -73,8 +73,10 @@ let rec printTree2 (tree: BinaryTree) (indent: string) (isLast: bool) =
 [<EntryPoint>]
 let main _ =
     let binTree1 = createTree()
+    printfn "Ваше дерево"
     printTree2 binTree1 "" true
     
+    printfn "Дерево после дублирования элементов"
     let binTree2 = TreeMap binTree1 
     printTree2 binTree2 "" true
     0
