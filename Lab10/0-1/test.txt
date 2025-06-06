@@ -1,0 +1,11 @@
+program Sum;
+var
+  a, b: integer;
+  c: real
+begin
+  @ := 5.9;
+  b := 100000000;
+  c := 'Summ: ' ;
+  S := a + b;
+  writeln(c,S);
+end.
